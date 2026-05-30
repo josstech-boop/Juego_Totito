@@ -23,6 +23,7 @@ const limpiar = () => {
     spanGanador.textContent = ''
     contenedorGanador.className = 'contenedor-ganador d-none' 
     pGanador.className= 'd-none'
+    spanTurno.textContent = ''
     casillas.forEach(casilla => {
         casilla.disabled = true
         casilla.textContent = ''
