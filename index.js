@@ -4,6 +4,8 @@ let spanTurno = document.querySelector('.turno')
 let contenedorGanador = document.querySelector('.contenedor-ganador')
 let spanGanador = document.querySelector('.span-ganador')
 let reiniciar = document.querySelector('.btn-reiniciar')
+let spanGandos_x = document.querySelector('.contador_x ')
+let spanGandos_o = document.querySelector('.contador_o ')
 
 let contador = 0
 let casillas_x = []
@@ -11,6 +13,25 @@ let casillas_o = []
 let contador_x = 0
 let contador_o = 0
 let pintar = []
+let ganados_o = 0
+let ganados_x = 0
+
+
+const limpiar = () => {
+    spanGanador.textContent = ''
+    casillas.forEach(casilla => {
+        casilla.disabled = false
+        casilla.textContent = ''
+        casilla.style.setProperty('background-color', ' rgb(35, 35, 114)')
+    })
+    contador = 1
+    casillas_x = []
+    casillas_o = []
+    contador_x = 0
+    contador_o = 0
+    pintar = []
+
+}
 
 const pintarCasillas = () => {
     casillas.forEach(casilla => {
@@ -45,8 +66,6 @@ const analizarTablero = (arreglo, turno) => {
 
                 pintar.push(arreglo[a])
             }
-
-
         }
 
         if (contador_o == 3 || contador_x == 3) {
@@ -56,13 +75,10 @@ const analizarTablero = (arreglo, turno) => {
             pintarCasillas()
             return true
         }
-
-
         contador_o = 0
         contador_x = 0
         pintar = []
     }
-
 
 }
 
@@ -73,8 +89,6 @@ const llenarCasillas = (id_casilla, turno) => {
     let analizar_o = casillas_o.length > 2 ? analizarTablero(casillas_o, turno) : false
     let analizar_x = casillas_x.length > 2 ? analizarTablero(casillas_x, turno) : false
 
-
-
     if (analizar_o == true) {
         desabilitarCasillas()
         console.log(casillas_o)
@@ -84,9 +98,6 @@ const llenarCasillas = (id_casilla, turno) => {
         desabilitarCasillas()
         return true
     }
-
-
-
 }
 
 const desabilitarCasillas = () => {
@@ -116,29 +127,34 @@ casillas.forEach(casilla => {
 
         if (contador % 2 == 0) {
             event.target.className = 'btn fw-bold text-white'
-            event.target.textContent = 'X'
-            spanTurno.textContent = 'O'
+            event.target.textContent = 'O'
+            spanTurno.textContent = 'X'
             ganador = llenarCasillas(event.target.id, 'X')
 
         } else {
             event.target.className = 'btn fw-bold text-white'
-            event.target.textContent = 'O'
-            spanTurno.textContent = 'X'
+            event.target.textContent = 'X'
+            spanTurno.textContent = 'O'
             ganador = llenarCasillas(event.target.id, 'O')
-
-
         }
-
-        console.log(ganador)
+        contador++
         if (ganador == true) {
+            if (event.target.textContent == 'X') {
+                ganados_x++
+
+            } else {
+                ganados_o++
+            }
+
             contenedorGanador.className = 'bg-info p-5 mt-5 rounded-5 contenedor-ganador '
             spanGanador.textContent = event.target.textContent
-
-        }
-         if (contador == 9) {
+        } else if (contador == 10) {
             contenedorGanador.className = 'bg-info p-5 mt-5 rounded-5 contenedor-ganador '
             spanGanador.textContent = '¡EMPATE!!'
         }
-        contador++
     })
+})
+
+reiniciar.addEventListener('click', () => {
+    limpiar()
 })

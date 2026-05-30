@@ -32,6 +32,9 @@ html {
 .contenedor-ganador{
     box-shadow: 8px 10px 10px 2px rgba(0, 129, 250, 0.3);
 }
+.contadores{
+    background-color: rgb(241, 241, 241);
+}
 
 .title {
     font-weight: bold;
