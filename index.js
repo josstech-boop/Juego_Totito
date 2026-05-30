@@ -2,6 +2,7 @@ let casillas = document.querySelectorAll('.btn')
 let spanTurno = document.querySelector('.turno')
 let contenedorGanador = document.querySelector('.contenedor-ganador')
 let spanGanador = document.querySelector('.span-ganador')
+let pGanador = document.querySelector('.pGanador')
 let reiniciar = document.querySelector('.btn-reiniciar')
 let spanGandos_x = document.querySelector('.contador_x ')
 let spanGandos_o = document.querySelector('.contador_o ')
@@ -20,6 +21,8 @@ let numComparar = 0
 
 const limpiar = () => {
     spanGanador.textContent = ''
+    contenedorGanador.className = 'contenedor-ganador d-none' 
+    pGanador.className= 'd-none'
     casillas.forEach(casilla => {
         casilla.disabled = true
         casilla.textContent = ''
@@ -32,8 +35,10 @@ const limpiar = () => {
     contador_o = 0
     pintar = []
 
+    reiniciar.disabled=true
     inicioO.disabled = false
     inicioX.disabled = false
+
 }
 
 const pintarCasillas = () => {
@@ -135,13 +140,13 @@ casillas.forEach(casilla => {
             event.target.className = 'btn fw-bold text-white'
             event.target.textContent = 'O'
             spanTurno.textContent = 'X'
-            ganador = llenarCasillas(event.target.id, 'X')
+            ganador = llenarCasillas(event.target.id, 'O')
 
         } else {
             event.target.className = 'btn fw-bold text-white'
             event.target.textContent = 'X'
             spanTurno.textContent = 'O'
-            ganador = llenarCasillas(event.target.id, 'O')
+            ganador = llenarCasillas(event.target.id, 'X')
         }
         contador++
         if (ganador == true) {
@@ -154,6 +159,7 @@ casillas.forEach(casilla => {
                 spanGandos_o.textContent = ganados_o
             }
             contenedorGanador.className = 'bg-info p-5 mt-5 rounded-5 contenedor-ganador '
+            pGanador.className = 'd-flex' 
             spanGanador.textContent = event.target.textContent
 
         } else if (contador == numComparar) {
